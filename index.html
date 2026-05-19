@@ -435,12 +435,12 @@
 
 <script>
 const allCharacters = [
-  { name: "Captain Panda Luxe", author: "apratt", avatar: "https://www.figma.com/api/mcp/asset/3e678f53-0820-4dc8-88ec-ce56bd019864" },
-  { name: "Fitness Hammy", author: "Doodles32", avatar: "https://www.figma.com/api/mcp/asset/0d43f7e5-56ef-4cb8-b95d-52fd8f517858" },
-  { name: "Fuzz Bubbles", author: "pizzaslime", avatar: "https://www.figma.com/api/mcp/asset/c001878c-3150-445c-8828-0dd8eef4c600" },
-  { name: "Groove", author: "max860113", avatar: "https://www.figma.com/api/mcp/asset/d5455c1d-3ad8-47e4-a1b0-b3e73b1f90ba" },
-  { name: "Caterton IV", author: "jzhwu_", avatar: "https://www.figma.com/api/mcp/asset/76e36da2-69ac-40f2-ab4b-a085c9ba5369" },
-  { name: "Sir Hoppsalot", author: "Blumen", avatar: "https://www.figma.com/api/mcp/asset/0d331500-15da-4d86-928c-319d5ef3ecc0" },
+  { name: "Captain Panda Luxe", author: "apratt", avatar: "images/avatar-captain-panda-luxe.png" },
+  { name: "Fitness Hammy", author: "Doodles32", avatar: "images/avatar-fitness-hammy.png" },
+  { name: "Fuzz Bubbles", author: "pizzaslime", avatar: "images/avatar-fuzz-bubbles.png" },
+  { name: "Groove", author: "max860113", avatar: "images/avatar-groove.png" },
+  { name: "Caterton IV", author: "jzhwu_", avatar: "images/avatar-caterton.png" },
+  { name: "Sir Hoppsalot", author: "Blumen", avatar: "images/avatar-sir-hoppsalot.png" },
 ];
 
 const favoriteNames = new Set();
@@ -576,27 +576,11 @@ const featuredCharacters = [
   {
     name: "Hot Take Harry",
     desc: "Think you're right? Prove it. Debate with Hot Take Harry to sharpen your argument. Only if you can handle it.",
-    img: "https://www.figma.com/api/mcp/asset/675cbd9b-59de-4504-9c35-453be8221156"
-  },
-  {
-    name: "Emma",
-    desc: "Your empathetic friend who always knows what to say. Talk through anything on your mind.",
-    img: "https://www.figma.com/api/mcp/asset/891daec7-4419-4968-a413-1929e62f129e"
-  },
-  {
-    name: "Annabelle",
-    desc: "A creative companion ready to brainstorm wild ideas and spark your imagination.",
-    img: "https://www.figma.com/api/mcp/asset/43820b1c-1392-4fd9-b406-0e23b6f77c80"
-  },
-  {
-    name: "Madame Claire",
-    desc: "An elegant advisor with impeccable taste. Ask her anything about style, culture, or life.",
-    img: "https://www.figma.com/api/mcp/asset/7c276368-893f-46e3-93ae-f9c321225cd0"
+    img: "images/featured-hot-take-harry.png"
   },
 ];
 
 let featuredIndex = 0;
-let featuredTimer = null;
 
 function renderFeatured() {
   const carousel = document.getElementById('featuredCarousel');
@@ -616,30 +600,16 @@ function renderFeatured() {
     carousel.appendChild(slide);
 
     const dot = document.createElement('div');
-    dot.className = 'featured-dot' + (i === 0 ? ' active' : '') + (i === featuredCharacters.length - 1 ? ' small' : '');
+    dot.className = 'featured-dot' + (i === 0 ? ' active' : '') + (i === featuredCharacters.length - 1 && featuredCharacters.length > 1 ? ' small' : '');
     dot.addEventListener('click', () => goToSlide(i));
     dotsWrap.appendChild(dot);
   });
-
-  startFeaturedAutoplay();
 }
 
 function goToSlide(idx) {
   featuredIndex = idx;
   document.querySelectorAll('.featured-slide').forEach((s, i) => s.classList.toggle('active', i === idx));
   document.querySelectorAll('.featured-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-  resetFeaturedAutoplay();
-}
-
-function startFeaturedAutoplay() {
-  featuredTimer = setInterval(() => {
-    goToSlide((featuredIndex + 1) % featuredCharacters.length);
-  }, 5000);
-}
-
-function resetFeaturedAutoplay() {
-  clearInterval(featuredTimer);
-  startFeaturedAutoplay();
 }
 
 let featuredStartX = 0;
