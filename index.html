@@ -193,27 +193,6 @@
     object-fit: cover;
     display: block;
   }
-  .featured-slide-footer {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 24px 20px;
-    background: linear-gradient(to top, rgba(0,0,0,0.56) 0%, rgba(0,0,0,0.36) 40%, transparent 100%);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .featured-slide-name {
-    font-size: 21px;
-    font-weight: 600;
-    color: white;
-    line-height: 28px;
-  }
-  .featured-slide-desc {
-    font-size: 15px;
-    font-weight: 400;
-    color: white;
-    line-height: 21px;
-  }
   .featured-dots {
     display: flex;
     gap: 8px;
@@ -406,7 +385,12 @@
         <div class="featured-section">
           <div class="section-header" style="align-self: stretch;">Featured from Meta</div>
           <div class="featured-carousel" id="featuredCarousel"></div>
-          <div class="featured-dots" id="featuredDots"></div>
+          <div class="featured-dots">
+            <div class="featured-dot active"></div>
+            <div class="featured-dot"></div>
+            <div class="featured-dot"></div>
+            <div class="featured-dot small"></div>
+          </div>
         </div>
 
         <div class="section-header" style="margin-top: 8px;">Recent from Vibes</div>
@@ -572,56 +556,13 @@ function removeFromFavorites(name, rowWrap) {
   });
 }
 
-const featuredCharacters = [
-  {
-    name: "Hot Take Harry",
-    desc: "Think you're right? Prove it. Debate with Hot Take Harry to sharpen your argument. Only if you can handle it.",
-    img: "images/featured-hot-take-harry.png"
-  },
-];
-
-let featuredIndex = 0;
-
 function renderFeatured() {
   const carousel = document.getElementById('featuredCarousel');
-  const dotsWrap = document.getElementById('featuredDots');
-  carousel.innerHTML = '';
-  dotsWrap.innerHTML = '';
-
-  featuredCharacters.forEach((fc, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'featured-slide' + (i === 0 ? ' active' : '');
-    slide.innerHTML = `
-      <img class="featured-slide-img" src="${fc.img}" alt="${fc.name}">
-      <div class="featured-slide-footer">
-        <div class="featured-slide-name">${fc.name}</div>
-        <div class="featured-slide-desc">${fc.desc}</div>
-      </div>`;
-    carousel.appendChild(slide);
-
-    const dot = document.createElement('div');
-    dot.className = 'featured-dot' + (i === 0 ? ' active' : '') + (i === featuredCharacters.length - 1 && featuredCharacters.length > 1 ? ' small' : '');
-    dot.addEventListener('click', () => goToSlide(i));
-    dotsWrap.appendChild(dot);
-  });
+  carousel.innerHTML = `
+    <div class="featured-slide active">
+      <img class="featured-slide-img" src="images/featured-hot-take-harry.png" alt="Hot Take Harry">
+    </div>`;
 }
-
-function goToSlide(idx) {
-  featuredIndex = idx;
-  document.querySelectorAll('.featured-slide').forEach((s, i) => s.classList.toggle('active', i === idx));
-  document.querySelectorAll('.featured-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-}
-
-let featuredStartX = 0;
-document.getElementById('featuredCarousel').addEventListener('touchstart', e => { featuredStartX = e.touches[0].clientX; }, { passive: true });
-document.getElementById('featuredCarousel').addEventListener('touchend', e => {
-  const diff = e.changedTouches[0].clientX - featuredStartX;
-  if (Math.abs(diff) < 40) return;
-  if (diff < 0 && featuredIndex < featuredCharacters.length - 1) goToSlide(featuredIndex + 1);
-  if (diff > 0 && featuredIndex > 0) goToSlide(featuredIndex - 1);
-});
-
-renderFeatured();
 renderDiscover();
 renderFavorites();
 renderMyAIs();
