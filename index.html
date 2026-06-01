@@ -26,6 +26,85 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    gap: 32px;
+  }
+
+  /* Version switcher */
+  .version-panel {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .version-panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .version-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    width: 100%;
+    text-align: left;
+  }
+  .version-option:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  .version-option.active {
+    border-color: rgba(130,100,255,0.5);
+    background: rgba(130,100,255,0.1);
+  }
+  .version-radio {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.25);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .version-option.active .version-radio {
+    border-color: #8264ff;
+  }
+  .version-option.active .version-radio::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #8264ff;
+  }
+  .version-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    line-height: 18px;
+  }
+  .version-option.active .version-label {
+    color: white;
+  }
+  .version-desc {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.35);
+    line-height: 14px;
+    margin-top: 1px;
+  }
+  .version-option.active .version-desc {
+    color: rgba(255,255,255,0.5);
+  }
+  .version-text {
+    display: flex;
+    flex-direction: column;
   }
 
   .phone {
@@ -799,6 +878,17 @@
 </head>
 <body>
 
+<div class="version-panel" id="versionPanel">
+  <div class="version-panel-title">Talkables Version</div>
+  <button class="version-option active" data-version="v1">
+    <div class="version-radio"></div>
+    <div class="version-text">
+      <span class="version-label">V1 — Discovery</span>
+      <span class="version-desc">Featured hero, character list with tabs</span>
+    </div>
+  </button>
+</div>
+
 <div class="phone">
   <div class="scroll-area">
 
@@ -1291,6 +1381,25 @@ tabContent.addEventListener('touchend', e => {
   const current = tabs.indexOf(document.querySelector('.seg-btn.active').dataset.tab);
   if (diff < 0 && current < tabs.length - 1) activateTab(tabs[current + 1]);
   if (diff > 0 && current > 0) activateTab(tabs[current - 1]);
+});
+
+// Version switcher
+const versionBtns = document.querySelectorAll('.version-option');
+let currentVersion = 'v1';
+
+function setVersion(version) {
+  currentVersion = version;
+  versionBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.version === version);
+  });
+
+  document.querySelectorAll('[data-version-content]').forEach(el => {
+    el.style.display = el.dataset.versionContent === version ? '' : 'none';
+  });
+}
+
+versionBtns.forEach(btn => {
+  btn.addEventListener('click', () => setVersion(btn.dataset.version));
 });
 
 </script>
