@@ -977,12 +977,16 @@
     position: absolute;
     top: 12px;
     left: 12px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 11px;
+    padding: 8px 14px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.08);
+    font-family: -apple-system, 'SF Pro Text', 'SF Pro', sans-serif;
+    font-size: 12px;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: white;
+    line-height: 16px;
+    letter-spacing: 0;
+    text-transform: none;
     z-index: 1;
   }
   .v2-card-body {
@@ -1721,7 +1725,7 @@ function renderV2Cards() {
     <div class="v2-card">
       <div class="v2-card-hero">
         <img src="${c.hero}" alt="${c.name}">
-        <span class="v2-card-badge" style="background:${c.badgeColor}; color:white;">${categoryLabels[c.category]}</span>
+        <span class="v2-card-badge">${categoryLabels[c.category]}</span>
       </div>
       <div class="v2-card-body">
         <div class="v2-card-row">
