@@ -402,13 +402,16 @@
     height: 24px;
   }
   .sidebar-item-label {
+    font-family: -apple-system, 'SF Pro', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     font-weight: 600;
+    font-style: normal;
     color: #f3f4f5;
     line-height: 24px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-feature-settings: 'liga' off, 'clig' off;
   }
 
   .sidebar-sub-item {
@@ -435,8 +438,10 @@
     flex-shrink: 0;
   }
   .sidebar-sub-label {
+    font-family: -apple-system, 'SF Pro', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     font-weight: 600;
+    font-style: normal;
     color: #f3f4f5;
     line-height: 24px;
     flex: 1;
@@ -444,6 +449,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-feature-settings: 'liga' off, 'clig' off;
   }
 
   .sidebar-divider {
@@ -530,11 +536,14 @@
     background: rgba(255,255,255,0.06);
   }
   .sidebar-bottom-label {
+    font-family: -apple-system, 'SF Pro', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     font-weight: 600;
+    font-style: normal;
     color: #f3f4f5;
     line-height: 24px;
     flex: 1;
+    font-feature-settings: 'liga' off, 'clig' off;
   }
   .sidebar-bottom-profile {
     width: 24px;
@@ -972,7 +981,7 @@
       </button>
       <button class="sidebar-item active" style="background: rgba(255,255,255,0.06);">
         <div class="sidebar-item-icon"><img src="images/icon-consumer-ai.svg" alt=""></div>
-        <span class="sidebar-item-label" style="font-size:17px;font-weight:590;">AI Talkables</span>
+        <span class="sidebar-item-label">AI Talkables</span>
       </button>
 
       <button class="sidebar-sub-item">
