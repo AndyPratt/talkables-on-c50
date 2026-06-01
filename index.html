@@ -515,17 +515,17 @@
 
   .sidebar-bottom {
     flex: 0 0 auto;
-    height: 80px;
     border-top: 1px solid #323435;
     display: flex;
-    align-items: flex-start;
-    padding: 8px 10px 44px;
+    align-items: center;
+    padding: 8px 10px 44px 10px;
   }
   .sidebar-bottom-inner {
     display: flex;
     align-items: center;
     gap: 10px;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     padding: 6px 10px;
     border-radius: 20px;
     cursor: pointer;
@@ -535,6 +535,13 @@
   .sidebar-bottom-inner:hover {
     background: rgba(255,255,255,0.06);
   }
+  .sidebar-bottom-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 44px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
   .sidebar-bottom-label {
     font-family: -apple-system, 'SF Pro', 'Helvetica Neue', sans-serif;
     font-size: 16px;
@@ -543,12 +550,29 @@
     color: #f3f4f5;
     line-height: 24px;
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-feature-settings: 'liga' off, 'clig' off;
   }
-  .sidebar-bottom-profile {
+  .sidebar-bottom-settings {
+    flex-shrink: 0;
+    padding: 6px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sidebar-bottom-settings:hover {
+    background: rgba(255,255,255,0.06);
+  }
+  .sidebar-bottom-settings img {
     width: 24px;
     height: 24px;
-    flex-shrink: 0;
   }
 
   /* New Chat screen */
@@ -1020,10 +1044,12 @@
     </div>
 
     <div class="sidebar-bottom">
-      <button class="sidebar-bottom-inner">
-        <div class="sidebar-item-icon"><img src="images/icon-gear.svg" alt=""></div>
-        <span class="sidebar-bottom-label">Settings</span>
-        <img class="sidebar-bottom-profile" src="images/icon-person-circle.svg" alt="">
+      <div class="sidebar-bottom-inner">
+        <img class="sidebar-bottom-avatar" src="images/avatar-profile.png" alt="">
+        <span class="sidebar-bottom-label">Anna Dominik</span>
+      </div>
+      <button class="sidebar-bottom-settings" aria-label="Settings">
+        <img src="images/icon-settings.svg" alt="">
       </button>
     </div>
   </div>
