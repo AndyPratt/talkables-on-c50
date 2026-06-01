@@ -550,11 +550,11 @@
     z-index: 15;
     display: flex;
     flex-direction: column;
-    transform: translateX(100%);
+    transform: translateX(0);
     transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
   }
-  .new-chat-screen.active {
-    transform: translateX(0);
+  .new-chat-screen.hidden {
+    transform: translateX(100%);
   }
 
   .nc-navbar {
@@ -611,9 +611,13 @@
     height: 20px;
   }
   .nc-title {
+    font-family: -apple-system, 'SF Pro', 'Helvetica Neue', sans-serif;
     font-size: 17px;
     font-weight: 600;
+    font-style: normal;
     color: white;
+    line-height: 22px;
+    letter-spacing: 0;
     margin-left: 16px;
     filter: drop-shadow(0 0 6px rgba(24,24,25,0.6));
   }
@@ -1221,12 +1225,12 @@ const ncMenuBtn = document.getElementById('ncMenuBtn');
 function showNewChat() {
   closeSidebar();
   setTimeout(() => {
-    newChatScreen.classList.add('active');
+    newChatScreen.classList.remove('hidden');
   }, 50);
 }
 
 function hideNewChat() {
-  newChatScreen.classList.remove('active');
+  newChatScreen.classList.add('hidden');
 }
 
 sidebarNewChat.addEventListener('click', showNewChat);
