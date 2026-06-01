@@ -874,6 +874,236 @@
     align-items: center;
     gap: 8px;
   }
+
+  /* V2 — App Store style */
+  .v2-container { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+  .v2-container.active { display: flex; }
+
+  .v2-tabs {
+    display: flex;
+    padding: 12px 20px 0;
+    gap: 0;
+    flex-shrink: 0;
+  }
+  .v2-tab {
+    padding: 8px 0;
+    margin-right: 24px;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.35);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .v2-tab.active {
+    color: white;
+    border-bottom-color: white;
+  }
+
+  .v2-filters {
+    display: flex;
+    gap: 8px;
+    padding: 12px 20px 4px;
+    overflow-x: auto;
+    flex-shrink: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .v2-filters::-webkit-scrollbar { display: none; }
+  .v2-filter {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .v2-filter.active {
+    background: white;
+    color: #111;
+    border-color: white;
+  }
+  .v2-filter:hover:not(.active) {
+    border-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.85);
+  }
+
+  .v2-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 20px 40px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .v2-card {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    cursor: pointer;
+    position: relative;
+    background: #222;
+    transition: transform 0.2s;
+  }
+  .v2-card:active { transform: scale(0.98); }
+  .v2-card-hero {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+  }
+  .v2-card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .v2-card-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  }
+  .v2-card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 1;
+  }
+  .v2-card-body {
+    padding: 14px 16px 16px;
+  }
+  .v2-card-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .v2-card-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+  .v2-card-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    line-height: 22px;
+  }
+  .v2-card-author {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    line-height: 16px;
+  }
+  .v2-card-desc {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    line-height: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .v2-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 14px;
+  }
+  .v2-card-talk-btn {
+    padding: 8px 20px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .v2-card-talk-btn:hover { background: rgba(255,255,255,0.16); }
+  .v2-card-fav {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .v2-card-fav svg { width: 20px; height: 20px; }
+
+  .v2-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255,255,255,0.35);
+    font-size: 15px;
+  }
+
+  /* Featured large card */
+  .v2-featured {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    cursor: pointer;
+    position: relative;
+  }
+  .v2-featured img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+  }
+  .v2-featured-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+  }
+  .v2-featured-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .v2-featured-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    line-height: 28px;
+  }
+  .v2-featured-sub {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 20px;
+    margin-top: 4px;
+  }
 </style>
 </head>
 <body>
@@ -885,6 +1115,13 @@
     <div class="version-text">
       <span class="version-label">V1 — Discovery</span>
       <span class="version-desc">Featured hero, character list with tabs</span>
+    </div>
+  </button>
+  <button class="version-option" data-version="v2">
+    <div class="version-radio"></div>
+    <div class="version-text">
+      <span class="version-label">V2 — Visual Cards</span>
+      <span class="version-desc">App Store style, filter by role</span>
     </div>
   </button>
 </div>
@@ -925,7 +1162,8 @@
       </button>
     </div>
 
-    <!-- Segmented control -->
+    <!-- V1: Segmented control + tabs -->
+    <div id="v1Container" data-version-content="v1" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
     <div class="seg-control-wrap">
       <div class="seg-control" id="segControl">
         <div class="seg-pill" id="segPill"></div>
@@ -971,6 +1209,30 @@
       </div>
 
     </div>
+    </div><!-- /v1Container -->
+
+    <!-- V2: App Store style -->
+    <div id="v2Container" class="v2-container" data-version-content="v2">
+      <div class="v2-tabs">
+        <button class="v2-tab active" data-v2tab="discover">Discover</button>
+        <button class="v2-tab" data-v2tab="favorites">Favorites</button>
+      </div>
+      <div class="v2-filters" id="v2Filters">
+        <button class="v2-filter active" data-category="all">All</button>
+        <button class="v2-filter" data-category="coach">Coach / Advisor</button>
+        <button class="v2-filter" data-category="storyteller">Storyteller</button>
+        <button class="v2-filter" data-category="roleplay">Roleplay Partner</button>
+        <button class="v2-filter" data-category="creative">Creative Partner</button>
+        <button class="v2-filter" data-category="companion">Companion</button>
+      </div>
+      <div class="v2-scroll" id="v2DiscoverScroll">
+        <div id="v2CardList"></div>
+      </div>
+      <div class="v2-scroll" id="v2FavScroll" style="display:none;">
+        <div id="v2FavList"></div>
+      </div>
+    </div>
+
   </div>
   <!-- New Chat screen -->
   <div class="new-chat-screen" id="newChatScreen">
@@ -1383,6 +1645,195 @@ tabContent.addEventListener('touchend', e => {
   if (diff > 0 && current > 0) activateTab(tabs[current - 1]);
 });
 
+// === V2 DATA & LOGIC ===
+const v2Characters = [
+  {
+    name: "Captain Panda Luxe", author: "apratt", avatar: "images/avatar-captain-panda-luxe.png",
+    category: "companion", color: "rgba(104,76,255,0.15)", badgeColor: "#684CFF",
+    desc: "A luxury-loving panda who gives life advice with style and charm.",
+    hero: "images/avatar-captain-panda-luxe.png"
+  },
+  {
+    name: "Fitness Hammy", author: "Doodles32", avatar: "images/avatar-fitness-hammy.png",
+    category: "coach", color: "rgba(46,204,113,0.15)", badgeColor: "#2ecc71",
+    desc: "Your personal fitness coach who keeps you motivated with high energy and custom workout plans.",
+    hero: "images/avatar-fitness-hammy.png"
+  },
+  {
+    name: "Fuzz Bubbles", author: "pizzaslime", avatar: "images/avatar-fuzz-bubbles.png",
+    category: "storyteller", color: "rgba(255,165,0,0.15)", badgeColor: "#FFA500",
+    desc: "A whimsical storyteller who spins tales of adventure in a world made of bubbles and fuzz.",
+    hero: "images/avatar-fuzz-bubbles.png"
+  },
+  {
+    name: "Groove", author: "max860113", avatar: "images/avatar-groove.png",
+    category: "creative", color: "rgba(199,79,255,0.15)", badgeColor: "#C74FFF",
+    desc: "A music-obsessed creative partner who helps you write lyrics, find beats, and explore sound.",
+    hero: "images/avatar-groove.png"
+  },
+  {
+    name: "Caterton IV", author: "jzhwu_", avatar: "images/avatar-caterton.png",
+    category: "roleplay", color: "rgba(255,75,75,0.15)", badgeColor: "#FF4B4B",
+    desc: "A distinguished feline aristocrat. Engage in Victorian-era roleplay or solve mysteries together.",
+    hero: "images/avatar-caterton.png"
+  },
+  {
+    name: "Sir Hoppsalot", author: "Blumen", avatar: "images/avatar-sir-hoppsalot.png",
+    category: "companion", color: "rgba(0,184,212,0.15)", badgeColor: "#00B8D4",
+    desc: "A cheerful bunny knight who's always ready to chat, cheer you up, or go on an imaginary quest.",
+    hero: "images/avatar-sir-hoppsalot.png"
+  },
+  {
+    name: "Hot Take Harry", author: "Meta", avatar: "images/featured-hot-take-harry.png",
+    category: "coach", color: "rgba(140,74,255,0.15)", badgeColor: "#8C4AFF",
+    desc: "Think you're right? Prove it. Debate with Hot Take Harry to sharpen your argument.",
+    hero: "images/featured-hot-take-harry.png"
+  },
+];
+
+const categoryLabels = {
+  all: "All", coach: "Coach / Advisor", storyteller: "Storyteller",
+  roleplay: "Roleplay Partner", creative: "Creative Partner", companion: "Companion"
+};
+
+const v2Favs = new Set();
+let v2ActiveFilter = 'all';
+let v2ActiveTab = 'discover';
+
+const heartOutline = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" fill="none"/></svg>`;
+const heartFilled = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF4B4B" stroke="#FF4B4B" stroke-width="1.5"/></svg>`;
+
+function renderV2Cards() {
+  const container = document.getElementById('v2CardList');
+  let chars = v2Characters;
+  if (v2ActiveFilter !== 'all') {
+    chars = chars.filter(c => c.category === v2ActiveFilter);
+  }
+
+  if (!chars.length) {
+    container.innerHTML = '<div class="v2-empty">No talkables in this category yet.</div>';
+    return;
+  }
+
+  // Featured card for first item
+  let html = '';
+  const first = chars[0];
+  html += `
+    <div class="v2-featured">
+      <img src="${first.hero}" alt="${first.name}">
+      <div class="v2-featured-overlay">
+        <div class="v2-featured-label">${categoryLabels[first.category]}</div>
+        <div class="v2-featured-title">${first.name}</div>
+        <div class="v2-featured-sub">${first.desc}</div>
+      </div>
+    </div>`;
+
+  // Remaining cards
+  chars.slice(1).forEach(c => {
+    const isFav = v2Favs.has(c.name);
+    html += `
+    <div class="v2-card">
+      <div class="v2-card-hero">
+        <img src="${c.hero}" alt="${c.name}">
+        <span class="v2-card-badge" style="background:${c.badgeColor}; color:white;">${categoryLabels[c.category]}</span>
+      </div>
+      <div class="v2-card-body">
+        <div class="v2-card-row">
+          <img class="v2-card-avatar" src="${c.avatar}" alt="">
+          <div>
+            <div class="v2-card-name">${c.name}</div>
+            <div class="v2-card-author">by ${c.author}</div>
+          </div>
+        </div>
+        <div class="v2-card-desc">${c.desc}</div>
+      </div>
+      <div class="v2-card-footer">
+        <button class="v2-card-talk-btn">Talk</button>
+        <button class="v2-card-fav" data-name="${c.name}">${isFav ? heartFilled : heartOutline}</button>
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+  container.querySelectorAll('.v2-card-fav').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const name = btn.dataset.name;
+      if (v2Favs.has(name)) v2Favs.delete(name); else v2Favs.add(name);
+      renderV2Cards();
+      renderV2Favs();
+    });
+  });
+}
+
+function renderV2Favs() {
+  const container = document.getElementById('v2FavList');
+  const favChars = v2Characters.filter(c => v2Favs.has(c.name));
+  if (!favChars.length) {
+    container.innerHTML = '<div class="v2-empty">Tap the heart on a talkable to save it here.</div>';
+    return;
+  }
+  let html = '';
+  favChars.forEach(c => {
+    html += `
+    <div class="v2-card">
+      <div class="v2-card-hero">
+        <img src="${c.hero}" alt="${c.name}">
+        <span class="v2-card-badge" style="background:${c.badgeColor}; color:white;">${categoryLabels[c.category]}</span>
+      </div>
+      <div class="v2-card-body">
+        <div class="v2-card-row">
+          <img class="v2-card-avatar" src="${c.avatar}" alt="">
+          <div>
+            <div class="v2-card-name">${c.name}</div>
+            <div class="v2-card-author">by ${c.author}</div>
+          </div>
+        </div>
+        <div class="v2-card-desc">${c.desc}</div>
+      </div>
+      <div class="v2-card-footer">
+        <button class="v2-card-talk-btn">Talk</button>
+        <button class="v2-card-fav" data-name="${c.name}">${heartFilled}</button>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+  container.querySelectorAll('.v2-card-fav').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      v2Favs.delete(btn.dataset.name);
+      renderV2Cards();
+      renderV2Favs();
+    });
+  });
+}
+
+// V2 filter clicks
+document.querySelectorAll('.v2-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.v2-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    v2ActiveFilter = btn.dataset.category;
+    renderV2Cards();
+  });
+});
+
+// V2 tab clicks
+document.querySelectorAll('.v2-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.v2-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    v2ActiveTab = btn.dataset.v2tab;
+    document.getElementById('v2DiscoverScroll').style.display = v2ActiveTab === 'discover' ? '' : 'none';
+    document.getElementById('v2FavScroll').style.display = v2ActiveTab === 'favorites' ? '' : 'none';
+    document.getElementById('v2Filters').style.display = v2ActiveTab === 'discover' ? '' : 'none';
+    if (v2ActiveTab === 'favorites') renderV2Favs();
+  });
+});
+
+renderV2Cards();
+renderV2Favs();
+
 // Version switcher
 const versionBtns = document.querySelectorAll('.version-option');
 let currentVersion = 'v1';
@@ -1393,9 +1844,15 @@ function setVersion(version) {
     btn.classList.toggle('active', btn.dataset.version === version);
   });
 
-  document.querySelectorAll('[data-version-content]').forEach(el => {
-    el.style.display = el.dataset.versionContent === version ? '' : 'none';
-  });
+  const v1 = document.getElementById('v1Container');
+  const v2 = document.getElementById('v2Container');
+  if (version === 'v1') {
+    v1.style.display = 'flex';
+    v2.classList.remove('active');
+  } else {
+    v1.style.display = 'none';
+    v2.classList.add('active');
+  }
 }
 
 versionBtns.forEach(btn => {
