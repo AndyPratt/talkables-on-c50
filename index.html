@@ -1213,10 +1213,6 @@
 
     <!-- V2: App Store style -->
     <div id="v2Container" class="v2-container" data-version-content="v2">
-      <div class="v2-tabs">
-        <button class="v2-tab active" data-v2tab="discover">Discover</button>
-        <button class="v2-tab" data-v2tab="favorites">Favorites</button>
-      </div>
       <div class="v2-filters" id="v2Filters">
         <button class="v2-filter active" data-category="all">All</button>
         <button class="v2-filter" data-category="coach">Coach / Advisor</button>
@@ -1224,12 +1220,10 @@
         <button class="v2-filter" data-category="roleplay">Roleplay Partner</button>
         <button class="v2-filter" data-category="creative">Creative Partner</button>
         <button class="v2-filter" data-category="companion">Companion</button>
+        <button class="v2-filter" data-category="favorites">Favorites</button>
       </div>
       <div class="v2-scroll" id="v2DiscoverScroll">
         <div id="v2CardList"></div>
-      </div>
-      <div class="v2-scroll" id="v2FavScroll" style="display:none;">
-        <div id="v2FavList"></div>
       </div>
     </div>
 
@@ -1706,30 +1700,22 @@ const heartFilled = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"
 function renderV2Cards() {
   const container = document.getElementById('v2CardList');
   let chars = v2Characters;
-  if (v2ActiveFilter !== 'all') {
+  if (v2ActiveFilter === 'favorites') {
+    chars = chars.filter(c => v2Favs.has(c.name));
+  } else if (v2ActiveFilter !== 'all') {
     chars = chars.filter(c => c.category === v2ActiveFilter);
   }
 
   if (!chars.length) {
-    container.innerHTML = '<div class="v2-empty">No talkables in this category yet.</div>';
+    const msg = v2ActiveFilter === 'favorites'
+      ? 'Tap the heart on a talkable to save it here.'
+      : 'No talkables in this category yet.';
+    container.innerHTML = `<div class="v2-empty">${msg}</div>`;
     return;
   }
 
-  // Featured card for first item
   let html = '';
-  const first = chars[0];
-  html += `
-    <div class="v2-featured">
-      <img src="${first.hero}" alt="${first.name}">
-      <div class="v2-featured-overlay">
-        <div class="v2-featured-label">${categoryLabels[first.category]}</div>
-        <div class="v2-featured-title">${first.name}</div>
-        <div class="v2-featured-sub">${first.desc}</div>
-      </div>
-    </div>`;
-
-  // Remaining cards
-  chars.slice(1).forEach(c => {
+  chars.forEach(c => {
     const isFav = v2Favs.has(c.name);
     html += `
     <div class="v2-card">
@@ -1761,49 +1747,6 @@ function renderV2Cards() {
       const name = btn.dataset.name;
       if (v2Favs.has(name)) v2Favs.delete(name); else v2Favs.add(name);
       renderV2Cards();
-      renderV2Favs();
-    });
-  });
-}
-
-function renderV2Favs() {
-  const container = document.getElementById('v2FavList');
-  const favChars = v2Characters.filter(c => v2Favs.has(c.name));
-  if (!favChars.length) {
-    container.innerHTML = '<div class="v2-empty">Tap the heart on a talkable to save it here.</div>';
-    return;
-  }
-  let html = '';
-  favChars.forEach(c => {
-    html += `
-    <div class="v2-card">
-      <div class="v2-card-hero">
-        <img src="${c.hero}" alt="${c.name}">
-        <span class="v2-card-badge" style="background:${c.badgeColor}; color:white;">${categoryLabels[c.category]}</span>
-      </div>
-      <div class="v2-card-body">
-        <div class="v2-card-row">
-          <img class="v2-card-avatar" src="${c.avatar}" alt="">
-          <div>
-            <div class="v2-card-name">${c.name}</div>
-            <div class="v2-card-author">by ${c.author}</div>
-          </div>
-        </div>
-        <div class="v2-card-desc">${c.desc}</div>
-      </div>
-      <div class="v2-card-footer">
-        <button class="v2-card-talk-btn">Talk</button>
-        <button class="v2-card-fav" data-name="${c.name}">${heartFilled}</button>
-      </div>
-    </div>`;
-  });
-  container.innerHTML = html;
-  container.querySelectorAll('.v2-card-fav').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      v2Favs.delete(btn.dataset.name);
-      renderV2Cards();
-      renderV2Favs();
     });
   });
 }
@@ -1818,21 +1761,7 @@ document.querySelectorAll('.v2-filter').forEach(btn => {
   });
 });
 
-// V2 tab clicks
-document.querySelectorAll('.v2-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.v2-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    v2ActiveTab = btn.dataset.v2tab;
-    document.getElementById('v2DiscoverScroll').style.display = v2ActiveTab === 'discover' ? '' : 'none';
-    document.getElementById('v2FavScroll').style.display = v2ActiveTab === 'favorites' ? '' : 'none';
-    document.getElementById('v2Filters').style.display = v2ActiveTab === 'discover' ? '' : 'none';
-    if (v2ActiveTab === 'favorites') renderV2Favs();
-  });
-});
-
 renderV2Cards();
-renderV2Favs();
 
 // Version switcher
 const versionBtns = document.querySelectorAll('.version-option');
