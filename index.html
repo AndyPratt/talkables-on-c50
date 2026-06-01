@@ -327,6 +327,220 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
+
+  /* Sidebar drawer */
+  .sidebar-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .sidebar-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidebar {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 317px;
+    background: #28292b;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-nav {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 68px 10px 0;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar-item:hover {
+    background: rgba(255,255,255,0.06);
+  }
+  .sidebar-item.active {
+    background: #28292b;
+  }
+  .sidebar-item-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sidebar-item-icon img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+  .sidebar-item-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .sidebar-item-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f3f4f5;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sidebar-sub-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px 6px 20px;
+    border-radius: 20px;
+    min-height: 36px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar-sub-item:hover {
+    background: rgba(255,255,255,0.06);
+  }
+  .sidebar-sub-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 48px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .sidebar-sub-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f3f4f5;
+    line-height: 24px;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sidebar-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 0 10px;
+  }
+
+  .sidebar-history {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px 10px 0;
+  }
+  .sidebar-history-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #686a6e;
+    line-height: 24px;
+    padding: 8px 10px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+  }
+  .sidebar-history-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    min-height: 36px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+  }
+  .sidebar-history-item:hover {
+    background: rgba(255,255,255,0.06);
+  }
+  .sidebar-history-item.pinned {
+    background: #28292b;
+  }
+  .sidebar-history-item-label {
+    font-size: 17px;
+    font-weight: 400;
+    color: #f3f4f5;
+    line-height: 22px;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sidebar-history-item .sidebar-pin-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-bottom {
+    flex: 0 0 auto;
+    height: 80px;
+    border-top: 1px solid #323435;
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 10px 44px;
+  }
+  .sidebar-bottom-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+  }
+  .sidebar-bottom-inner:hover {
+    background: rgba(255,255,255,0.06);
+  }
+  .sidebar-bottom-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f3f4f5;
+    line-height: 24px;
+    flex: 1;
+  }
+  .sidebar-bottom-profile {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -414,6 +628,89 @@
 
     </div>
   </div>
+  <!-- Sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar drawer -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-nav">
+      <button class="sidebar-item">
+        <div class="sidebar-item-icon"><img src="images/icon-ai-vibes.svg" alt=""></div>
+        <span class="sidebar-item-label">Vibes</span>
+      </button>
+      <button class="sidebar-item">
+        <div class="sidebar-item-icon"><img src="images/icon-meta-ai.png" alt="" style="width:20px;height:20px;border-radius:50%;object-fit:cover;"></div>
+        <span class="sidebar-item-label">Chat</span>
+      </button>
+      <button class="sidebar-item">
+        <div class="sidebar-item-icon"><img src="images/icon-smart-glasses.svg" alt=""></div>
+        <span class="sidebar-item-label">Devices</span>
+      </button>
+
+      <div class="sidebar-divider"></div>
+
+      <button class="sidebar-item">
+        <div class="sidebar-item-icon"><img src="images/icon-mountain-square.svg" alt=""></div>
+        <span class="sidebar-item-label">Media</span>
+      </button>
+      <button class="sidebar-item">
+        <div class="sidebar-item-icon"><img src="images/icon-bell.svg" alt=""></div>
+        <span class="sidebar-item-label">Notifications</span>
+      </button>
+      <button class="sidebar-item active" style="background: rgba(255,255,255,0.06);">
+        <div class="sidebar-item-icon"><img src="images/icon-consumer-ai.svg" alt=""></div>
+        <span class="sidebar-item-label" style="font-size:17px;font-weight:590;">AI Talkables</span>
+      </button>
+
+      <button class="sidebar-sub-item">
+        <img class="sidebar-sub-avatar" src="images/avatar-hot-take-harry.png" alt="">
+        <span class="sidebar-sub-label">Hot Take Harry</span>
+      </button>
+      <button class="sidebar-sub-item">
+        <img class="sidebar-sub-avatar" src="images/avatar-emma.png" alt="">
+        <span class="sidebar-sub-label">Emma</span>
+      </button>
+    </div>
+
+    <div class="sidebar-history">
+      <div class="sidebar-history-label">History</div>
+      <button class="sidebar-history-item pinned" style="background: rgba(255,255,255,0.06);">
+        <img class="sidebar-sub-avatar" src="images/avatar-skibuddy.png" alt="">
+        <span class="sidebar-history-item-label">Help SkiBuddy build a fort</span>
+        <img class="sidebar-pin-icon" src="images/icon-pin.svg" alt="">
+      </button>
+      <button class="sidebar-history-item">
+        <span class="sidebar-history-item-label">A magical castle in the sea</span>
+      </button>
+      <button class="sidebar-history-item">
+        <span class="sidebar-history-item-label">Lucid Dream Discussion</span>
+      </button>
+      <button class="sidebar-history-item">
+        <span class="sidebar-history-item-label">Returning topspin forehand debate</span>
+      </button>
+      <button class="sidebar-history-item">
+        <span class="sidebar-history-item-label">Lucid Dreaming</span>
+      </button>
+      <button class="sidebar-history-item">
+        <span class="sidebar-history-item-label">Tennis Stats in Five Sets</span>
+      </button>
+      <button class="sidebar-history-item">
+        <span class="sidebar-history-item-label">Topspin Forehand Debate</span>
+      </button>
+      <button class="sidebar-history-item">
+        <span class="sidebar-history-item-label">Top LA Golf Courses</span>
+      </button>
+    </div>
+
+    <div class="sidebar-bottom">
+      <button class="sidebar-bottom-inner">
+        <div class="sidebar-item-icon"><img src="images/icon-gear.svg" alt=""></div>
+        <span class="sidebar-bottom-label">Settings</span>
+        <img class="sidebar-bottom-profile" src="images/icon-person-circle.svg" alt="">
+      </button>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 </div>
 
@@ -563,6 +860,7 @@ function renderFeatured() {
       <img class="featured-slide-img" src="images/featured-hot-take-harry.png" alt="Hot Take Harry">
     </div>`;
 }
+renderFeatured();
 renderDiscover();
 renderFavorites();
 renderMyAIs();
@@ -588,6 +886,23 @@ segBtns.forEach(btn => {
 });
 
 requestAnimationFrame(() => activateTab('discover'));
+
+// Sidebar toggle
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+const menuBtn = document.querySelector('.nav-btn[aria-label="Menu"]');
+
+function openSidebar() {
+  sidebar.classList.add('open');
+  sidebarOverlay.classList.add('open');
+}
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  sidebarOverlay.classList.remove('open');
+}
+
+menuBtn.addEventListener('click', openSidebar);
+sidebarOverlay.addEventListener('click', closeSidebar);
 
 // Swipe support for tabs
 let startX = 0;
