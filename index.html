@@ -983,6 +983,25 @@
     text-transform: none;
     z-index: 1;
   }
+  .v2-card-fav {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.35);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.15s;
+  }
+  .v2-card-fav:hover { background: rgba(0,0,0,0.5); }
+  .v2-card-fav svg { width: 20px; height: 20px; }
+
   .v2-card-content {
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -1593,6 +1612,9 @@ const categoryLabels = {
 const v2Favs = new Set();
 let v2ActiveFilter = 'all';
 
+const heartOutline = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="white" stroke-width="1.5" fill="none"/></svg>`;
+const heartFilled = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF4B4B" stroke="#FF4B4B" stroke-width="1.5"/></svg>`;
+
 function renderV2Cards() {
   const container = document.getElementById('v2CardList');
   let chars = v2Characters;
@@ -1612,11 +1634,13 @@ function renderV2Cards() {
 
   let html = '';
   chars.forEach(c => {
+    const isFav = v2Favs.has(c.title);
     html += `
     <div class="v2-card">
       <img class="v2-card-img" src="${c.hero}" alt="${c.title}">
       <div class="v2-card-overlay"></div>
       <span class="v2-card-badge">${categoryLabels[c.category]}</span>
+      <button class="v2-card-fav" data-title="${c.title}">${isFav ? heartFilled : heartOutline}</button>
       <div class="v2-card-content">
         <div class="v2-card-title">${c.title}</div>
         <div class="v2-card-desc">${c.desc}</div>
@@ -1625,6 +1649,14 @@ function renderV2Cards() {
   });
 
   container.innerHTML = html;
+  container.querySelectorAll('.v2-card-fav').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const title = btn.dataset.title;
+      if (v2Favs.has(title)) v2Favs.delete(title); else v2Favs.add(title);
+      renderV2Cards();
+    });
+  });
 }
 
 // V2 filter clicks
