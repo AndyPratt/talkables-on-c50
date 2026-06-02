@@ -1877,6 +1877,9 @@ function setVersion(version) {
   v1.style.display = version === 'v1' ? 'flex' : 'none';
   v2.classList.toggle('active', version === 'v2');
   v3.classList.toggle('active', version === 'v3');
+
+  document.getElementById('v1FilterBtn').style.display = version === 'v1' ? '' : 'none';
+  v1FilterDropdown.classList.remove('open');
 }
 
 versionBtns.forEach(btn => {
