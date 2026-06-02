@@ -1376,38 +1376,38 @@
     <!-- V3: Pinterest grid -->
     <div id="v3Container" class="v3-container" data-version-content="v3">
       <div class="v3-scroll">
-        <div class="v3-capabilities">
-          <button class="v3-cap-item active">
+        <div class="v3-capabilities" id="v3Capabilities">
+          <button class="v3-cap-item active" data-v3cat="all">
             <div class="v3-cap-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg>
             </div>
             <span class="v3-cap-label">All</span>
           </button>
-          <button class="v3-cap-item">
+          <button class="v3-cap-item" data-v3cat="coach">
             <div class="v3-cap-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" stroke="white" stroke-width="1.3" fill="none"/></svg>
             </div>
             <span class="v3-cap-label">Coach</span>
           </button>
-          <button class="v3-cap-item">
+          <button class="v3-cap-item" data-v3cat="storyteller">
             <div class="v3-cap-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M4 19h16M4 15l4-8 4 8M6 11h4M14 9v10M14 9c0-1 1-2 3-2s3 1 3 2.5-1 2.5-3 2.5h0c2 0 3 1 3 2.5s-1 2.5-3 2.5c-2 0-3-1-3-2" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
             </div>
             <span class="v3-cap-label">Storyteller</span>
           </button>
-          <button class="v3-cap-item">
+          <button class="v3-cap-item" data-v3cat="roleplay">
             <div class="v3-cap-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M14 9l-2.5 5.5L6 17l5.5 2.5L14 25" stroke="white" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 4L12 2l2.5 2L17 3v3l2.5 1.5L18 10l.5 3-2.5 1-1.5 2.5L12 15l-2.5 1.5L8 14l-2.5-1 .5-3L4 7.5 6.5 6V3z" stroke="white" stroke-width="1.3" fill="none" stroke-linejoin="round"/></svg>
             </div>
             <span class="v3-cap-label">Roleplay</span>
           </button>
-          <button class="v3-cap-item">
+          <button class="v3-cap-item" data-v3cat="creative">
             <div class="v3-cap-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-1.5 0-3 .5-4 1.5C6 6 6 8 7 10c1 2 2 3 2 5h6c0-2 1-3 2-5 1-2 1-4-1-5.5C15 3.5 13.5 3 12 3zM9 17h6M10 20h4" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
             </div>
             <span class="v3-cap-label">Creative</span>
           </button>
-          <button class="v3-cap-item">
+          <button class="v3-cap-item" data-v3cat="companion">
             <div class="v3-cap-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z" stroke="white" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
@@ -1415,29 +1415,11 @@
           </button>
         </div>
 
-        <div class="v3-section-title">For you</div>
-        <div class="v3-horiz-row">
-          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/card-hot-take-harry.png" alt=""><span class="v3-horiz-label">Start Debating</span></div>
-          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/avatar-fitness-hammy.png" alt=""><span class="v3-horiz-label">Get Fit Today</span></div>
-          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/avatar-fuzz-bubbles.png" alt=""><span class="v3-horiz-label">Spin a Tale</span></div>
-          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/avatar-groove.png" alt=""><span class="v3-horiz-label">Make Music</span></div>
-          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/avatar-caterton.png" alt=""><span class="v3-horiz-label">Solve a Mystery</span></div>
-        </div>
+        <div class="v3-section-title" id="v3ForYouTitle">For you</div>
+        <div class="v3-horiz-row" id="v3HorizRow"></div>
 
         <div class="v3-section-title">Discover</div>
-        <div class="v3-masonry">
-          <div class="v3-masonry-col">
-            <div class="v3-grid-card"><img src="images/card-hot-take-harry.png" alt="" style="height:168px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Start Debating<br><span style="opacity:0.7;">with Hot Take Harry</span></span></div></div>
-            <div class="v3-grid-card"><img src="images/avatar-fuzz-bubbles.png" alt="" style="height:200px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Spin a Tale<br><span style="opacity:0.7;">with Fuzz Bubbles</span></span></div></div>
-            <div class="v3-grid-card"><img src="images/avatar-caterton.png" alt="" style="height:180px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Solve a Mystery<br><span style="opacity:0.7;">with Caterton IV</span></span></div></div>
-            <div class="v3-grid-card"><img src="images/avatar-captain-panda-luxe.png" alt="" style="height:200px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Live Luxuriously<br><span style="opacity:0.7;">with Captain Panda Luxe</span></span></div></div>
-          </div>
-          <div class="v3-masonry-col">
-            <div class="v3-grid-card"><img src="images/avatar-fitness-hammy.png" alt="" style="height:200px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Get Fit Today<br><span style="opacity:0.7;">with Fitness Hammy</span></span></div></div>
-            <div class="v3-grid-card"><img src="images/avatar-groove.png" alt="" style="height:168px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Make Some Music<br><span style="opacity:0.7;">with Groove</span></span></div></div>
-            <div class="v3-grid-card"><img src="images/avatar-sir-hoppsalot.png" alt="" style="height:200px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Go on a Quest<br><span style="opacity:0.7;">with Sir Hoppsalot</span></span></div></div>
-          </div>
-        </div>
+        <div class="v3-masonry" id="v3Masonry"></div>
       </div>
     </div>
 
@@ -1867,6 +1849,66 @@ document.querySelectorAll('.v2-filter').forEach(btn => {
 });
 
 renderV2Cards();
+
+// === V3 RENDERING ===
+const v3Data = [
+  { title: "Start Debating", character: "Hot Take Harry", hero: "images/card-hot-take-harry.png", category: "roleplay", h: 168 },
+  { title: "Get Fit Today", character: "Fitness Hammy", hero: "images/avatar-fitness-hammy.png", category: "coach", h: 200 },
+  { title: "Spin a Tale", character: "Fuzz Bubbles", hero: "images/avatar-fuzz-bubbles.png", category: "storyteller", h: 200 },
+  { title: "Make Some Music", character: "Groove", hero: "images/avatar-groove.png", category: "creative", h: 168 },
+  { title: "Solve a Mystery", character: "Caterton IV", hero: "images/avatar-caterton.png", category: "roleplay", h: 180 },
+  { title: "Go on a Quest", character: "Sir Hoppsalot", hero: "images/avatar-sir-hoppsalot.png", category: "companion", h: 200 },
+  { title: "Live Luxuriously", character: "Captain Panda Luxe", hero: "images/avatar-captain-panda-luxe.png", category: "companion", h: 200 },
+];
+let v3ActiveFilter = 'all';
+
+function renderV3() {
+  let items = v3Data;
+  if (v3ActiveFilter !== 'all') {
+    items = items.filter(c => c.category === v3ActiveFilter);
+  }
+
+  // Horizontal row
+  const horizRow = document.getElementById('v3HorizRow');
+  const forYouTitle = document.getElementById('v3ForYouTitle');
+  if (v3ActiveFilter === 'all') {
+    forYouTitle.style.display = '';
+    horizRow.style.display = '';
+    horizRow.innerHTML = items.slice(0, 5).map(c =>
+      `<div class="v3-horiz-card"><img class="v3-horiz-img" src="${c.hero}" alt=""><span class="v3-horiz-label">${c.title}</span></div>`
+    ).join('');
+  } else {
+    forYouTitle.style.display = 'none';
+    horizRow.style.display = 'none';
+  }
+
+  // Masonry grid
+  const masonry = document.getElementById('v3Masonry');
+  if (!items.length) {
+    masonry.innerHTML = '<div class="v2-empty" style="width:100%;">No talkables in this category.</div>';
+    return;
+  }
+  const col1 = [], col2 = [];
+  items.forEach((c, i) => (i % 2 === 0 ? col1 : col2).push(c));
+
+  function cardHTML(c) {
+    return `<div class="v3-grid-card"><img src="${c.hero}" alt="" style="height:${c.h}px;"><div class="v3-grid-overlay"><span class="v3-grid-text">${c.title}<br><span style="opacity:0.7;">with ${c.character}</span></span></div></div>`;
+  }
+  masonry.innerHTML = `
+    <div class="v3-masonry-col">${col1.map(cardHTML).join('')}</div>
+    <div class="v3-masonry-col">${col2.map(cardHTML).join('')}</div>`;
+}
+
+document.querySelectorAll('#v3Capabilities .v3-cap-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#v3Capabilities .v3-cap-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    v3ActiveFilter = btn.dataset.v3cat;
+    renderV3();
+  });
+});
+
+renderV3();
 
 // Version switcher
 const versionBtns = document.querySelectorAll('.version-option');
