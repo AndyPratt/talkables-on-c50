@@ -1030,6 +1030,141 @@
     color: rgba(255,255,255,0.35);
     font-size: 15px;
   }
+
+  /* V3 — Pinterest / Creation grid */
+  .v3-container { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+  .v3-container.active { display: flex; }
+
+  .v3-scroll {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .v3-capabilities {
+    display: flex;
+    gap: 12px;
+    padding: 20px 12px 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .v3-capabilities::-webkit-scrollbar { display: none; }
+  .v3-cap-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 76px;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  .v3-cap-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .v3-cap-item.active .v3-cap-icon {
+    background: rgba(255,255,255,0.16);
+  }
+  .v3-cap-icon svg { width: 24px; height: 24px; }
+  .v3-cap-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    line-height: 16px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .v3-cap-item.active .v3-cap-label { color: white; }
+
+  .v3-section-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #f3f4f5;
+    line-height: 22px;
+    padding: 12px 20px;
+  }
+
+  .v3-horiz-row {
+    display: flex;
+    gap: 12px;
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .v3-horiz-row::-webkit-scrollbar { display: none; }
+  .v3-horiz-card {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-top: 8px;
+    cursor: pointer;
+  }
+  .v3-horiz-img {
+    width: 108px;
+    height: 140px;
+    border-radius: 16px;
+    object-fit: cover;
+    display: block;
+  }
+  .v3-horiz-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    line-height: 16px;
+    text-align: center;
+    width: 108px;
+  }
+
+  .v3-masonry {
+    display: flex;
+    gap: 16px;
+    padding: 0 20px 40px;
+  }
+  .v3-masonry-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+  .v3-grid-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .v3-grid-card:active { transform: scale(0.97); }
+  .v3-grid-card img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+  .v3-grid-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 52%, transparent 100%);
+    border-radius: 0 0 16px 16px;
+  }
+  .v3-grid-text {
+    font-size: 12px;
+    font-weight: 400;
+    color: white;
+    line-height: 16px;
+    text-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  }
 </style>
 </head>
 <body>
@@ -1048,6 +1183,13 @@
     <div class="version-text">
       <span class="version-label">V2 — Visual Cards</span>
       <span class="version-desc">App Store style, filter by role</span>
+    </div>
+  </button>
+  <button class="version-option" data-version="v3">
+    <div class="version-radio"></div>
+    <div class="version-text">
+      <span class="version-label">V3 — Grid Discover</span>
+      <span class="version-desc">Pinterest-style masonry with categories</span>
     </div>
   </button>
 </div>
@@ -1150,6 +1292,75 @@
       </div>
       <div class="v2-scroll" id="v2DiscoverScroll">
         <div id="v2CardList"></div>
+      </div>
+    </div>
+
+    <!-- V3: Pinterest grid -->
+    <div id="v3Container" class="v3-container" data-version-content="v3">
+      <div class="v3-scroll">
+        <div class="v3-capabilities">
+          <button class="v3-cap-item active">
+            <div class="v3-cap-icon">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5z" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <span class="v3-cap-label">All</span>
+          </button>
+          <button class="v3-cap-item">
+            <div class="v3-cap-icon">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" stroke="white" stroke-width="1.3" fill="none"/></svg>
+            </div>
+            <span class="v3-cap-label">Coach</span>
+          </button>
+          <button class="v3-cap-item">
+            <div class="v3-cap-icon">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 19h16M4 15l4-8 4 8M6 11h4M14 9v10M14 9c0-1 1-2 3-2s3 1 3 2.5-1 2.5-3 2.5h0c2 0 3 1 3 2.5s-1 2.5-3 2.5c-2 0-3-1-3-2" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <span class="v3-cap-label">Storyteller</span>
+          </button>
+          <button class="v3-cap-item">
+            <div class="v3-cap-icon">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M14 9l-2.5 5.5L6 17l5.5 2.5L14 25" stroke="white" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 4L12 2l2.5 2L17 3v3l2.5 1.5L18 10l.5 3-2.5 1-1.5 2.5L12 15l-2.5 1.5L8 14l-2.5-1 .5-3L4 7.5 6.5 6V3z" stroke="white" stroke-width="1.3" fill="none" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="v3-cap-label">Roleplay</span>
+          </button>
+          <button class="v3-cap-item">
+            <div class="v3-cap-icon">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-1.5 0-3 .5-4 1.5C6 6 6 8 7 10c1 2 2 3 2 5h6c0-2 1-3 2-5 1-2 1-4-1-5.5C15 3.5 13.5 3 12 3zM9 17h6M10 20h4" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <span class="v3-cap-label">Creative</span>
+          </button>
+          <button class="v3-cap-item">
+            <div class="v3-cap-icon">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z" stroke="white" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="v3-cap-label">Companion</span>
+          </button>
+        </div>
+
+        <div class="v3-section-title">For you</div>
+        <div class="v3-horiz-row">
+          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/v3-3d-character.png" alt=""><span class="v3-horiz-label">3D character</span></div>
+          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/v3-runway.png" alt=""><span class="v3-horiz-label">Runway fantasy</span></div>
+          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/v3-alien.png" alt=""><span class="v3-horiz-label">Alien selfie</span></div>
+          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/v3-portrait.png" alt=""><span class="v3-horiz-label">Classic portrait</span></div>
+          <div class="v3-horiz-card"><img class="v3-horiz-img" src="images/v3-cosplay.png" alt=""><span class="v3-horiz-label">Cosplay duo</span></div>
+        </div>
+
+        <div class="v3-section-title">Discover</div>
+        <div class="v3-masonry">
+          <div class="v3-masonry-col">
+            <div class="v3-grid-card"><img src="images/v3-restyle.png" alt="" style="height:168px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Restyle my photo as a 3D character</span></div></div>
+            <div class="v3-grid-card"><img src="images/v3-cat.png" alt="" style="height:180px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Choose what the cat sings</span></div></div>
+            <div class="v3-grid-card"><img src="images/v3-story.png" alt="" style="height:180px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Write the story of the day</span></div></div>
+            <div class="v3-grid-card"><img src="images/v3-joke.png" alt="" style="height:180px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Pick the topic for the bad joke</span></div></div>
+          </div>
+          <div class="v3-masonry-col">
+            <div class="v3-grid-card"><img src="images/v3-astronaut.png" alt="" style="height:168px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Create a video of me as an astronaut</span></div></div>
+            <div class="v3-grid-card"><img src="images/v3-effect.png" alt="" style="height:180px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Choose an effect for your video</span></div></div>
+            <div class="v3-grid-card"><img src="images/v3-mission.png" alt="" style="height:180px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Choose the star of this mission</span></div></div>
+            <div class="v3-grid-card"><img src="images/v3-musical.png" alt="" style="height:180px;"><div class="v3-grid-overlay"><span class="v3-grid-text">Choose the cast for this holiday musical</span></div></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1683,13 +1894,11 @@ function setVersion(version) {
 
   const v1 = document.getElementById('v1Container');
   const v2 = document.getElementById('v2Container');
-  if (version === 'v1') {
-    v1.style.display = 'flex';
-    v2.classList.remove('active');
-  } else {
-    v1.style.display = 'none';
-    v2.classList.add('active');
-  }
+  const v3 = document.getElementById('v3Container');
+
+  v1.style.display = version === 'v1' ? 'flex' : 'none';
+  v2.classList.toggle('active', version === 'v2');
+  v3.classList.toggle('active', version === 'v3');
 }
 
 versionBtns.forEach(btn => {
