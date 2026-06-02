@@ -180,6 +180,74 @@
   }
   .nav-right.hidden { visibility: hidden; }
 
+  /* Filter dropdown */
+  .filter-dropdown {
+    position: absolute;
+    top: 48px;
+    right: 16px;
+    background: #2a2b2d;
+    border-radius: 16px;
+    padding: 8px 0;
+    min-width: 200px;
+    z-index: 50;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .filter-dropdown.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .filter-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+  }
+  .filter-dropdown-item:hover {
+    background: rgba(255,255,255,0.06);
+  }
+  .filter-dropdown-item .filter-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .filter-dropdown-item.active .filter-check {
+    background: #8264ff;
+    border-color: #8264ff;
+  }
+  .filter-dropdown-item.active .filter-check::after {
+    content: '';
+    width: 8px;
+    height: 5px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg);
+    margin-top: -2px;
+  }
+  .filter-dropdown-label {
+    font-size: 15px;
+    font-weight: 400;
+    color: #f3f4f5;
+    line-height: 20px;
+  }
+  .filter-dropdown-item.active .filter-dropdown-label {
+    font-weight: 500;
+  }
+
   /* Segmented control */
   .seg-control-wrap {
     padding: 12px 16px 0;
@@ -291,6 +359,26 @@
   }
   .featured-dot.small {
     width: 4px; height: 4px;
+  }
+  .featured-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    border-radius: 0 0 28px 28px;
+  }
+  .featured-title {
+    font-size: 21px;
+    font-weight: 700;
+    color: white;
+    line-height: 28px;
+  }
+  .featured-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 20px;
+    margin-top: 2px;
   }
 
   /* Character list */
@@ -1227,9 +1315,19 @@
       </button>
       <span class="nav-title">AI Talkables</span>
       <!-- controls-slider-2 icon -->
-      <button class="nav-btn nav-right" id="navRightBtn" aria-label="Settings" style="visibility:hidden;">
-        <svg width="20" height="20" viewBox="0 0 32 32" fill="none"></svg>
+      <button class="nav-btn nav-right" id="v1FilterBtn" aria-label="Filter">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M3 6h18M7 12h10M10 18h4" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
       </button>
+      <div class="filter-dropdown" id="v1FilterDropdown">
+        <button class="filter-dropdown-item active" data-filter="all"><span class="filter-check"></span><span class="filter-dropdown-label">All</span></button>
+        <button class="filter-dropdown-item" data-filter="coach"><span class="filter-check"></span><span class="filter-dropdown-label">Coach / Advisor</span></button>
+        <button class="filter-dropdown-item" data-filter="storyteller"><span class="filter-check"></span><span class="filter-dropdown-label">Storyteller</span></button>
+        <button class="filter-dropdown-item" data-filter="roleplay"><span class="filter-check"></span><span class="filter-dropdown-label">Roleplay Partner</span></button>
+        <button class="filter-dropdown-item" data-filter="creative"><span class="filter-check"></span><span class="filter-dropdown-label">Creative Partner</span></button>
+        <button class="filter-dropdown-item" data-filter="companion"><span class="filter-check"></span><span class="filter-dropdown-label">Companion</span></button>
+      </div>
     </div>
 
     <!-- V1: Featured + Recently Played -->
@@ -1514,14 +1612,16 @@
 
 <script>
 const recentlyPlayed = [
-  { title: "Start Debating", character: "Hot Take Harry", avatar: "images/featured-hot-take-harry.png" },
-  { title: "Get Fit Today", character: "Fitness Hammy", avatar: "images/avatar-fitness-hammy.png" },
-  { title: "Spin a Tale", character: "Fuzz Bubbles", avatar: "images/avatar-fuzz-bubbles.png" },
-  { title: "Make Some Music", character: "Groove", avatar: "images/avatar-groove.png" },
-  { title: "Solve a Mystery", character: "Caterton IV", avatar: "images/avatar-caterton.png" },
-  { title: "Go on a Quest", character: "Sir Hoppsalot", avatar: "images/avatar-sir-hoppsalot.png" },
-  { title: "Live Luxuriously", character: "Captain Panda Luxe", avatar: "images/avatar-captain-panda-luxe.png" },
+  { title: "Start Debating", character: "Hot Take Harry", avatar: "images/featured-hot-take-harry.png", category: "roleplay" },
+  { title: "Get Fit Today", character: "Fitness Hammy", avatar: "images/avatar-fitness-hammy.png", category: "coach" },
+  { title: "Spin a Tale", character: "Fuzz Bubbles", avatar: "images/avatar-fuzz-bubbles.png", category: "storyteller" },
+  { title: "Make Some Music", character: "Groove", avatar: "images/avatar-groove.png", category: "creative" },
+  { title: "Solve a Mystery", character: "Caterton IV", avatar: "images/avatar-caterton.png", category: "roleplay" },
+  { title: "Go on a Quest", character: "Sir Hoppsalot", avatar: "images/avatar-sir-hoppsalot.png", category: "companion" },
+  { title: "Live Luxuriously", character: "Captain Panda Luxe", avatar: "images/avatar-captain-panda-luxe.png", category: "companion" },
 ];
+
+let v1ActiveFilter = 'all';
 
 const caretRightSVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
   <path d="M9 6l6 6-6 6" stroke="rgba(242,247,255,0.53)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1538,7 +1638,15 @@ function addDivider() {
 function renderRecentlyPlayed() {
   const container = document.getElementById('recentlyPlayedList');
   container.innerHTML = '';
-  recentlyPlayed.forEach((c, i) => {
+  let list = recentlyPlayed;
+  if (v1ActiveFilter !== 'all') {
+    list = list.filter(c => c.category === v1ActiveFilter);
+  }
+  if (!list.length) {
+    container.innerHTML = '<div class="empty-state">No talkables in this category.</div>';
+    return;
+  }
+  list.forEach((c, i) => {
     const wrap = document.createElement('div');
     wrap.className = 'char-row-wrap';
     wrap.innerHTML = `
@@ -1553,7 +1661,7 @@ function renderRecentlyPlayed() {
         </div>
       </div>`;
     container.appendChild(wrap);
-    if (i < recentlyPlayed.length - 1) container.appendChild(addDivider());
+    if (i < list.length - 1) container.appendChild(addDivider());
   });
 }
 
@@ -1562,10 +1670,41 @@ function renderFeatured() {
   carousel.innerHTML = `
     <div class="featured-slide active">
       <img class="featured-slide-img" src="images/featured-hot-take-harry.png" alt="Hot Take Harry">
+      <div class="featured-overlay">
+        <div class="featured-title">Start Debating</div>
+        <div class="featured-subtitle">with Hot Take Harry</div>
+      </div>
     </div>`;
 }
 renderFeatured();
 renderRecentlyPlayed();
+
+// V1 Filter dropdown
+const v1FilterBtn = document.getElementById('v1FilterBtn');
+const v1FilterDropdown = document.getElementById('v1FilterDropdown');
+
+v1FilterBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  v1FilterDropdown.classList.toggle('open');
+});
+
+document.addEventListener('click', () => {
+  v1FilterDropdown.classList.remove('open');
+});
+
+v1FilterDropdown.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+
+document.querySelectorAll('#v1FilterDropdown .filter-dropdown-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('#v1FilterDropdown .filter-dropdown-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    v1ActiveFilter = item.dataset.filter;
+    renderRecentlyPlayed();
+    v1FilterDropdown.classList.remove('open');
+  });
+});
 
 // Sidebar toggle
 const sidebar = document.getElementById('sidebar');
